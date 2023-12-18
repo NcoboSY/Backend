@@ -70,6 +70,21 @@ router.get(`/${API}/offers`, async (req, res) => {
     await res.json(err);
   }
 });
+
+// Hotel Ratings
+router.get(`/${API}/hotelratings`, async (req, res) => {
+  try {
+    const { offerId } = req.query;
+    const response = await amadeus.eReputation.hotelSentiments.get({
+      hotelIds
+    });
+
+    await res.json(JSON.parse(response.body));
+  } catch (err) {
+    await res.json(err);
+  }
+});
+
 // Confirming the offer
 router.get(`/${API}/offer`, async (req, res) => {
   try {
@@ -81,6 +96,8 @@ router.get(`/${API}/offer`, async (req, res) => {
     await res.json(err);
   }
 });
+
+
 // Booking
 router.post(`/${API}/booking`, async (req, res) => {
   try {
